@@ -1,0 +1,37 @@
+{
+	"3": {"TestCase":"Test Case One smoke regression",
+			"url":"http://jsonplaceholder.typicode.com/posts",
+			"method":"GET",
+			"scenarios":[
+    			{
+      			 "id": "1",
+      			 "command": "compare3",
+      			 "expected":"200"
+    			  },
+    			  {
+      			 "id": "1",
+      			 "command": "contains",
+      			 "expected":"200"
+    			  }
+    			  ]
+		} ,
+		
+		"4": {"TestCase":"Test Case One smoke regression",
+			"url":"http://jsonplaceholder.typicode.com/posts",
+			"method":"POST",
+			"scenarios":[
+    			{
+      			 "id": "1",
+      			 "command": "compare4",
+      			 "expected":"200"
+    			  },
+    			  {
+      			 "id": "1",
+      			 "command": "contains2",
+      			 "expected":"200"
+    			  }
+    			  ]
+		}
+		
+		
+}

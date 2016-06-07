@@ -1,0 +1,20 @@
+{
+	"1": {"TestCase":"Test Case One smoke regression",
+			"url":"http://jsonplaceholder.typicode.com/posts",
+			"method":"GET",
+			"scenarios":[
+    			{
+      			 "validate":"status",
+      			 "command": "compare",
+      			 "expected":"200"
+    			  },
+    			  {
+      			 "id": "1",
+      			 "validate":"status",
+      			 "command": "contains",
+      			 "expected":"200"
+    			  }
+    			  ]
+		} 
+		
+}
