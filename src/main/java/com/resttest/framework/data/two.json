@@ -1,20 +1,19 @@
 {
-	"3": {"TestCase":"Test Case One smoke regression",
-			"url":"http://jsonplaceholder.typicode.com/posts",
-			"method":"GET"		} ,
 		
-		"4": {"TestCase":"Test Case One smoke regression",
+		"3": {"TestCase":"Test Case One smoke regression",
 			"url":"http://jsonplaceholder.typicode.com/posts",
 			"method":"POST",
 			"scenarios":[
     			{
-      			 "id": "1",
+      			 "id": "3",
       			 "validate":"status",
+      			 "method":"GET",
       			 "command": "compare4",
       			 "expected":"200"
     			  },
     			  {
-      			 "id": "1",
+      			 "id": "4",
+      			 "method":"POST",
       			 "command": "contains2",
       			 "expected":"200"
     			  }
