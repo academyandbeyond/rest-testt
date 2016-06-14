@@ -10,6 +10,7 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.resttest.framework.Capabilities;
 
 
 /* TO DO
@@ -24,6 +25,11 @@ import com.google.gson.GsonBuilder;
 
 public class JsonTCParser {
 	
+	private Capabilities capabilities;
+	
+	public JsonTCParser(Capabilities capabilities){
+		this.capabilities=capabilities;
+	}
 	
 	/*
 	 * This method reads the json files and stores the json test cases into and arraylist of TestCase object
