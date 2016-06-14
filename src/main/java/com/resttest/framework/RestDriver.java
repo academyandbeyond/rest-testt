@@ -20,6 +20,7 @@ public class RestDriver {
 		capabilities = new Capabilities();
 		System.out.println(capabilitiesmap.get("folderpath").toString());
 		capabilities.setFolderPath(capabilitiesmap.get("folderpath").toString());
+		capabilities.setEnvironment(capabilitiesmap.get("environment").toString());
 		//capabilities.setEnvironment(capabilitiesmap.get("Environment").toString());
 		//this.folderpath=folderpath;
 	}
@@ -36,7 +37,7 @@ public class RestDriver {
 		 */
 		// TODO verify capabilities are not null
 
-		JsonTCParser jsontcparser = new JsonTCParser();
+		JsonTCParser jsontcparser = new JsonTCParser(capabilities);
 		//ArrayList<String> jsonData = new ArrayList<String>();
 		Map<String,String>jsonData = new HashMap<String,String>();
 		jsonData=getJsonDataMap(capabilities.getFolderPath());
@@ -46,7 +47,7 @@ public class RestDriver {
 		// TD ... Raise exception if test case is null
 		//int totalTestCasesCount = allTestCases.size();
 		//System.out.println("Inside RestDriver.executeScripts - TC Count : "+ totalTestCasesCount );
-		Executor executor = new Executor(allTestCases);
+		Executor executor = new Executor(allTestCases,capabilities);
 		executor.executeAll(); 
 	}
 	

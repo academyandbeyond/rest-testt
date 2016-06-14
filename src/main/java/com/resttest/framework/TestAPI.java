@@ -32,7 +32,7 @@ public class TestAPI {
 	public int getStatus(String url){
 		this.url=url;
 		statuscode=RestAssured.get(url).getStatusCode();
-System.out.println("Inside TestAPI Statuscod : "+statuscode);
+//System.out.println("Inside TestAPI Statuscod : "+statuscode);
 		Config.writehtml(Integer.toString(statuscode));
 		return statuscode;
 	}
