@@ -5,7 +5,7 @@ import java.util.List;
 
 public class TestCase {
 	
-	private int tcid;
+	private String tcid;
 	private String testCase;
 	private String url;
 	private String method;
@@ -22,11 +22,11 @@ public class TestCase {
 			'tags':['smoke','regression']
 	 */
 	
-	public void addTCID(int tcid){
+	public void addTCID(String tcid){
 		this.tcid=tcid;
 	}
 	
-	public int getTCID(){
+	public String getTCID(){
 		return this.tcid;
 	}
 	
