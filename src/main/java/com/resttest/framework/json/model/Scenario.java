@@ -5,8 +5,11 @@ public class Scenario {
 	String id;
 	String command;
 	String expected;
-	String validator;
+	String validate;
 	String result;
+	private String method;
+	private String error;
+	private String scenario;
 	
 	public void setID(String id){
 		this.id=id;
@@ -16,13 +19,13 @@ public class Scenario {
 		return id;
 	}
 	
-	public void setValidate(String validator){
-		this.validator=validator;
+	public void setValidate(String validate){
+		this.validate=validate;
 	}
 	
 	
 	public String getValidate(){
-		return validator;
+		return validate;
 	}
 	
 	public void setCommand(String command){
@@ -47,4 +50,29 @@ public class Scenario {
 	public String getResult(){
 		return result;
 	}
+	
+	public void setMethod(String method){
+		this.method=method;
+	}
+	
+	public String getMethod(){
+		return method;
+	}
+	
+	public void setError(String error){
+		this.error=error;
+	}
+	
+	public String getError(){
+		return error;
+	}
+	
+	public void setScenario(String scenario){
+		this.scenario=scenario;
+	}
+	
+	public String getScenario(){
+		return scenario;
+	}
+	
 }
