@@ -73,7 +73,7 @@ public class TestCaseDeserialize implements JsonDeserializer<TestSuite> {
 		
 		if (jsonobject.getAsJsonObject(jsonid).has("TestCase")){
 			jsonTest=jsonobject.getAsJsonObject(jsonid).get("TestCase");
-			tcs.addTCID(Integer.parseInt(jsonid));
+			tcs.addTCID(jsonid);
 		    tcs.addTestCase(jsonTest.getAsString());
 		} else {
 			// add exception to add tests
