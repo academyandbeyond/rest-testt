@@ -1,6 +1,9 @@
 package com.resttest.framework;
 
 import com.jayway.restassured.RestAssured;
+import com.jayway.restassured.path.json.JsonPath;
+import com.jayway.restassured.response.Header;
+import com.jayway.restassured.response.Headers;
 import com.jayway.restassured.response.Response;
 
 public class TestAPI {
@@ -9,6 +12,8 @@ public class TestAPI {
 	private String url;
 	private Response response;
 	private int statuscode;
+	private String contenttype;
+	private String CONTENTTYPE="Content-Type";
 	
 	public TestAPI(){
 		
@@ -24,7 +29,6 @@ public class TestAPI {
 	public TestAPI get(String url){
 		this.url=url;
 		response=RestAssured.get(url);
-		
 		Config.writehtml(url);
 		return this;
 	}
@@ -44,8 +48,22 @@ public class TestAPI {
 		return statuscode;
 	}
 
+	public String getContentType(){
+		contenttype = response.getHeader(CONTENTTYPE);
+		return contenttype;
+	}
 	
+	public Headers getAPIHeaders(){
+		/*
+		Headers allHeaders = response.getHeaders();
+		for (Header header1 : allHeaders){
+			System.out.println(header1.getName()+" : "+ header1.getValue());
+		}*/
+		return response.getHeaders();
+	}
 	
-	
+	public JsonPath getResponseJsonPath(){
+		return response.getBody().jsonPath();
+	}
 	
 }

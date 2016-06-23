@@ -5,19 +5,25 @@
 			"statuscode": 200,
 			"scenarios":[
     			{
-      			 "id": "TC1-SC1",
+      			 "id": "SC1",
       			 "method":"GET",
       			 "validate":"status",
       			 "command": "compare",
-      			 "expected":"200"
+      			 "expected":"20",
+      			 "primary":"Yes"
     			  },
     			{
-      			 "id": "TC2 - SC2", 
+      			 "id": "SC2", 
+      			 "dependent":["TC1SC1"],
+      			 "method":"GET-D",
+      			 "sendheader":["TC1SC1:content-type"],
       			 "validate":"status",
-      			 "method":"GET",
-      			 "command": "contains",
-      			 "expected":"200"
+      			 "command": "compare",
+      			 "expected":"200",
+      			 "tags":["tag1","tag2"]
     			  }
     			  ]
 		} 
+		
+		
 }
