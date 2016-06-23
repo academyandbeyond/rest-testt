@@ -69,7 +69,7 @@ public class TestCaseDeserialize implements JsonDeserializer<TestSuite> {
 			 if (!entry.getKey().isEmpty()){
 				 tcs = new TestCase();
 		jsonid=entry.getKey().toString();
-	//	System.out.println("Json ID : "+jsonid);
+		//System.out.println("Json ID : "+jsonid);
 		
 		if (jsonobject.getAsJsonObject(jsonid).has("TestCase")){
 			jsonTest=jsonobject.getAsJsonObject(jsonid).get("TestCase");
@@ -91,8 +91,8 @@ public class TestCaseDeserialize implements JsonDeserializer<TestSuite> {
 		jsonurl=jsonobject.getAsJsonObject(jsonid).get("url");
 		tcs.addUrl(jsonurl.getAsString());
 
-		 jsonMethod=jsonobject.getAsJsonObject(jsonid).get("method");
-		tcs.addMethod(jsonMethod.getAsString());
+		// jsonMethod=jsonobject.getAsJsonObject(jsonid).get("method");
+		//tcs.addMethod(jsonMethod.getAsString());
 		
 	//	JsonElement jsonsce = jsonobject.getAsJsonObject(jsonid).get("scenarios");
 		//System.out.println(sce.);

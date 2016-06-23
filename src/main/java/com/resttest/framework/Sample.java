@@ -5,23 +5,26 @@ import java.util.List;
 
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.RestAssured.*;
+import com.jayway.restassured.matcher.RestAssuredMatchers.*;
 import com.jayway.restassured.path.json.JsonPath;
 import com.jayway.restassured.response.Header;
 import com.jayway.restassured.response.Headers;
 import com.jayway.restassured.response.Response;
+import com.jayway.restassured.specification.RequestSpecification;
 
 
 public class Sample {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Response response = RestAssured.get("http://jsonplaceholder.typicode.com/posts/1");
-		
+		Response response = RestAssured.get("http://jsonplaceholder.typicode.com/posts?userId=1");
 	//	InputStream stream = RestAssured.get("http://jsonplaceholder.typicode.com").asInputStream(); // Don't forget to close this one when you're done
 		//byte[] byteArray = RestAssured.get("http://jsonplaceholder.typicode.com").asByteArray();
 		String json = response.asString();
-		//System.out.println(json);
 		
+		//RequestSpecification rs= RestAssured.given().spec(arg0)
+		//System.out.println(json);
+		/*
 		//extracting response after validation
 		JsonPath jsonPath = new JsonPath(json).setRoot("");
 		System.out.println(jsonPath.getString("title"));
@@ -32,25 +35,32 @@ public class Sample {
 		// *** Get single path
 		int userId1 = response.path("userId");
 		System.out.println(userId1);
+		*/
 
 	// GET HEADERNAME
-		String header = response.getHeader("headerName");
-		System.out.println("Header : "+header);
+		String header = response.getHeader("Content-Type");
+		System.out.println("Content-Type : "+header);
+	
+		System.out.println("PRINTING ALL HEADERS");
 		Headers allHeaders = response.getHeaders();
 			for (Header header1 : allHeaders){
 				System.out.println(header1.getName()+" : "+ header1.getValue());
 			}
 		
 	// //	Headers, cookies, status etc
-		String body = response.body().asString();
+		//String body = response.body().asString();
+		JsonPath jsonPath1 = response.getBody().jsonPath();
 		
-		System.out.println(body);
+		System.out.println(jsonPath1.getString("id[1]"));
 		
 		// for payload
 		//http://artoftesting.com/automationTesting/restAPIAutomationPostRequest.html
 		//http://www.swtestacademy.com/api-testing-with-rest-assured/
 		
-
+			TestAPI test = new TestAPI();
+			test.createTest("asdasdf").get("").getStatus();
+			
+			
 	}
 
 }
