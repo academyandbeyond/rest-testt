@@ -19,6 +19,7 @@ public class Executor {
 	ArrayList<TestCase> allTestCases;
 	TestCase currentTestCase;
 	TestAPI test;
+	private String currentscenarioid;
 	private String currentUrl;
 	private String currentTestCaseName;
 	private String testcaseresult;
@@ -55,24 +56,20 @@ public class Executor {
 	
 	
 	private void executeTest(){
-		
-			 Scenario currentscenario;
-			 String currentvalidate;
-			 String currentcommand;
-			 String currentExpected;
-			 Headers currentheader;
-			 JsonPath currentresponse;
-			 PrimaryData currentprimarydata=new PrimaryData();
-			 
-			 
+		Scenario currentscenario;
+		String currentvalidate;
+		String currentcommand;
+		String currentExpected;
+		Headers currentheader;
+		JsonPath currentresponse;
+		int numofscenarios;
+		PrimaryData currentprimarydata=new PrimaryData();
 				//System.out.println("Inside executeTest : "+currentTestCase.getTCID());
 
-
-		int scenarios;
 		if (currentTestCase.getScenarios()!=null){
-			scenarios=currentTestCase.getScenarios().size();
+			numofscenarios=currentTestCase.getScenarios().size();
 		}else {
-			scenarios=0;
+			numofscenarios=0;
 			return;
 		}
 		
@@ -80,7 +77,7 @@ public class Executor {
 		currentTestCaseName=currentTestCase.getTestCase();
 
 				
-		for(int i=0; i<scenarios; i++){
+		for(int i=0; i<numofscenarios; i++){
 			
 			test.createTest(currentTestCase.getTestCase());
 			currentscenario=currentTestCase.getScenarios().get(i);
@@ -89,9 +86,9 @@ public class Executor {
 			currentExpected=currentscenario.getExpected();
 			currentMethod=currentscenario.getMethod();
 			currentvalidate=currentscenario.getValidate();
+			currentscenarioid=currentscenario.getID();
 			
-			if (currentMethod==null || currentvalidate==null || currentcommand==null || currentExpected==null){
-				//System.out.println("1111 "+currentscenario.getID() );
+			if (currentscenarioid==null||currentMethod==null || currentvalidate==null || currentcommand==null || currentExpected==null){
 				currentscenario.setError("Exiting execution as one of these is null. { 'method','validate','command','expected'}");
 				continue;
 			}
@@ -105,7 +102,6 @@ public class Executor {
 				currentscenario = executeGet(currentscenario);	
 				
 			} else if(currentMethod.equalsIgnoreCase(JsonConstants.GETD.getConstant())){
-				System.out.println("Coming here");
 				test = test.get(currentUrl);
 				currentheader=test.getAPIHeaders();
 				currentscenario.setHeader(currentheader);	
@@ -127,7 +123,8 @@ public class Executor {
 					//primarytestcases.add(currentTestCase);
 				}
 			}
-			
+
+			currentscenarioid=null;
 			currentscenario=null;
 			currentcommand=null;
 			currentExpected=null;
