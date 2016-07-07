@@ -6,7 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class TestSuite {
-	private ArrayList<TestCase> testSuite = new ArrayList<>();
+	private ArrayList<TestCase> testSuite = new ArrayList<TestCase>();
 	
 	
 	public void addTestSuite(String filename,ArrayList<TestCase> newTestSuite){

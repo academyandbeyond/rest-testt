@@ -58,7 +58,7 @@ public class Sample {
 		//http://www.swtestacademy.com/api-testing-with-rest-assured/
 		
 			TestAPI test = new TestAPI();
-			test.createTest("asdasdf").get("").getStatus();
+//			test.createTest("asdasdf").get("").getStatus();
 			
 			
 	}
