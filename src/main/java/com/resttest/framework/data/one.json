@@ -15,8 +15,9 @@
     			{
       			 "id": "SC2", 
       			 "dependent":["TC1SC1"],
-      			 "method":"GET-D",
+      			 "method":"POST-D",
       			 "sendheader":["TC1SC1:content-type"],
+				 "sendpayload":["TC1SC1"],
       			 "validate":"status",
       			 "command": "compare",
       			 "expected":"200",

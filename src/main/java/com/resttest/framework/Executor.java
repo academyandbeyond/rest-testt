@@ -7,12 +7,14 @@ import java.util.List;
 
 import com.jayway.restassured.path.json.JsonPath;
 import com.jayway.restassured.response.Headers;
+import com.resttest.framework.exceptions.RestAPIException;
 import com.resttest.framework.json.model.JsonConstants;
 import com.resttest.framework.json.model.PrimaryData;
 import com.resttest.framework.json.model.ResultEnum;
 import com.resttest.framework.json.model.Scenario;
 import com.resttest.framework.json.model.TestCase;
 import com.resttest.framework.json.model.TestSuite;
+import com.resttest.framework.api.Post;
 
 public class Executor {
 	
@@ -30,6 +32,7 @@ public class Executor {
 	private String PASS = ResultEnum.PASS.getResult();
 	private String FAIL = ResultEnum.PASS.getResult();
 	private String NE = ResultEnum.NE.getResult();
+	private Post post;
 	
 	public Executor(ArrayList<TestCase> allTestCases, Capabilities capabilities){
 		this.allTestCases=allTestCases;
@@ -106,6 +109,14 @@ public class Executor {
 				currentheader=test.getAPIHeaders();
 				currentscenario.setHeader(currentheader);	
 				currentscenario = executeGetD(currentscenario,primarydata);	
+			} else if(currentMethod.equalsIgnoreCase(JsonConstants.POST.getConstant())){
+				post = new Post(currentTestCaseName);
+				post.executePOST(currentscenario, currentUrl);
+			}else if(currentMethod.equalsIgnoreCase(JsonConstants.POSTD.getConstant())) {
+
+					post = new Post(currentTestCaseName);
+
+				post.executePostD(currentscenario, primarydata,currentUrl);
 			}
 			
 			//System.out.println("Inside executeAll : "+currentTestCase.getTCID());
@@ -115,7 +126,6 @@ public class Executor {
 			if(currentscenario.getPrimary()!=null){
 				if(currentscenario.getPrimary().equalsIgnoreCase("Yes")){
 					currentprimarydata.setTCID(currentTCID);
-					
 					currentprimarydata.setTSID(currentscenario.getID());
 					currentprimarydata.setJsonPath(currentscenario.getJsonPath());
 					currentprimarydata.setHeader(currentscenario.getHeader());
@@ -205,7 +215,7 @@ public class Executor {
 	
 	
 	
-	private Scenario executeHeaderCT(Scenario currentscenario) {
+	private Scenario executeHeaderCT(Scenario currentscenario) throws RestAPIException {
 		
 		String expectedcontenttype = currentscenario.getExpected() ;
 		String actualcontenttype=getActualContentType();
