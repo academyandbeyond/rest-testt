@@ -1,5 +1,6 @@
 package com.resttest.framework.json.model;
 
+import com.google.gson.JsonElement;
 import com.jayway.restassured.path.json.JsonPath;
 import com.jayway.restassured.response.Headers;
 
@@ -7,7 +8,7 @@ public class PrimaryData {
 	
 	private String TCID;
 	private String TSID;
-	private JsonPath responseasjp;
+	private JsonElement responseasjp;
 	private Headers headers;
 	
 	
@@ -23,11 +24,11 @@ public class PrimaryData {
 	public String getTSID(){
 		return this.TSID;
 	}
-	public void setJsonPath(JsonPath responseasjp){
+	public void setJsonPath(JsonElement responseasjp){
 		this.responseasjp=responseasjp;
 	}
 	
-	public JsonPath getJsonPath(){
+	public JsonElement getJsonPath(){
 		return responseasjp;
 	}
 

@@ -57,7 +57,7 @@ public class RestDriver {
 		File directory = new File(testDataDirectory);
 		
 		File[] fileslist = directory.listFiles();
-		//System.out.println(fileslist.length);
+		System.out.println(fileslist.length);
 
 		
 		
@@ -73,10 +73,10 @@ public class RestDriver {
       //  System.out.println(jsonTxt);
 	
 		//ArrayList<String> fileliststring=new ArrayList();
-		
+
 		for (int i=0; i< fileslist.length; i++) {
 			if (fileslist[i].isFile()){
-				//System.out.println(fileslist[i]);
+				System.out.println(fileslist[i]);
 				is = new FileInputStream(fileslist[i]);
 				jsonTxt = IOUtils.toString(is);
 				
@@ -130,6 +130,7 @@ public class RestDriver {
 	 
 		return jsonData;
 	}
+	/*
 	private void readTestSuite(ArrayList<TestCase> allTestCases) throws IOException{
 		Config.before();
 		TestAPI test = new TestAPI();
@@ -160,6 +161,6 @@ public class RestDriver {
 
 	}
 	
-	
+	*/
 	
 }

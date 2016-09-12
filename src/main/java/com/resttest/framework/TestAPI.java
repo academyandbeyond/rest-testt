@@ -1,10 +1,13 @@
 package com.resttest.framework;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.path.json.JsonPath;
 import com.jayway.restassured.response.Header;
 import com.jayway.restassured.response.Headers;
 import com.jayway.restassured.response.Response;
+import com.jayway.restassured.response.ResponseBody;
 import com.resttest.framework.exceptions.Errors;
 import com.resttest.framework.exceptions.RestAPIException;
 
@@ -57,7 +60,6 @@ public class TestAPI {
 	public int getStatus(String url){
 		this.url=url;
 		statuscode=RestAssured.get(url).getStatusCode();
-		Config.writehtml(Integer.toString(statuscode));
 		return statuscode;
 	}
 	
@@ -80,13 +82,59 @@ public class TestAPI {
 		return response.getHeaders();
 	}
 	
-	public JsonPath getResponseJsonPath()  {
+	public JsonElement getResponseJsonPath()  {
 		if (testcase!=null & testcase!="") {
-			return response.getBody().jsonPath();
+			return JsonUtil.getBodyAsElement(response.getBody());
 		} else {
 			this.error = Errors.ERROR_TC.getErrorMessage();
 			return null;
 		}
 	}
+
+	//nn
+
+	public TestAPI post(String url, String header, String payload){
+		response=JsonUtil.getResponseBodyWhenContent(header,payload,url,"post");
+		return this;
+	}
+
+	public String getResponsebody(){
+		return response.body().asString();
+	}
+
+	public JsonPath getResponsebodyasJsonPath() {
+		return response.body().jsonPath();
+	}
+
+	public String getResponseAttribute(String attribute){
+
+		String responsebodystring="";
+		String responsecontent="";
+		ResponseBody responsebody =response.body();
+
+		if (responsebody!=null){
+			JsonElement jsonelementbody=JsonUtil.getBodyAsElement(responsebody);
+
+			if(attribute!="" & attribute !=null){
+				JsonElement jsonelement = JsonUtil.getJsonElementValue(jsonelementbody,attribute);
+				if(jsonelement==null){
+					return responsecontent;
+				}
+				responsebodystring=jsonelement.toString();
+
+			}else {
+				Gson gson = new Gson();
+				responsebodystring=gson.toJson(jsonelementbody);
+			}
+		}
+
+		return responsebodystring;
+	}
+
+
+	public long responseTime(){
+		return response.getTime();
+	}
+
 
 }

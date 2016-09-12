@@ -12,6 +12,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.builder.RequestSpecBuilder;
+import com.jayway.restassured.response.Response;
 import com.jayway.restassured.response.ResponseBody;
 import com.jayway.restassured.response.ResponseBodyExtractionOptions;
 import com.jayway.restassured.specification.RequestSpecification;
@@ -55,14 +56,30 @@ public class JsonUtil {
         return requestspec;
     }
 
-    public static ResponseBody getResponseBodyWhenContent(String header, String payload, String url, String method){
-        RequestSpecification requestspec = specBuilder(header,payload);
-        ResponseBody responsebody=null;
+    public static Response getResponseBodyWhenContent(String header, String payload, String url, String method){
+       Map<String,String> headersmap=null;
+        Response response;
+        boolean headerexists=false;
+        boolean payloadexists=false;
 
-        if(method.equalsIgnoreCase(JsonConstants.POST.getConstant())){
-            responsebody = RestAssured.given().spec(requestspec).when().post(url).getBody();
+        if (header!=null & header!=""){
+            headersmap = new Gson().fromJson(header,new TypeToken<HashMap<String, String>>() {}.getType());
+            headerexists=true;
         }
-        return responsebody;
+
+        if (payload!=null & payload!=""){
+            payloadexists=true;
+        }
+
+        if(headerexists & payloadexists){
+            response=RestAssured.given().headers(headersmap).body(payload).post(url);
+        }else if(headerexists & payloadexists==false){
+            response=RestAssured.given().headers(headersmap).post(url);
+        }else {
+            response=RestAssured.given().post(url);
+        }
+
+        return response;
     }
 
     public static JsonElement getJsonElementValue(JsonElement jsonelement, String attribute){

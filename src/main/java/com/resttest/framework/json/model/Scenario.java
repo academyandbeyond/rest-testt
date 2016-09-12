@@ -1,5 +1,7 @@
 package com.resttest.framework.json.model;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.jayway.restassured.path.json.JsonPath;
 import com.jayway.restassured.response.Header;
 import com.jayway.restassured.response.Headers;
@@ -17,10 +19,19 @@ public class Scenario {
 	private String actual;
 	private String[] dependent;
 	private String[] tags;
-	private String[] sendheader;
-	private JsonPath responseasjp;
+
+
+	private JsonElement responseasjp;
 	private Headers headers;
 	private String primary;
+
+	private JsonObject header;
+	private JsonObject payload;
+	private String responseattribute;
+	private String actualresponse;
+	private String url;
+	private long responsetime;
+
 	
 	public void setID(String id){
 		this.id=id;
@@ -93,14 +104,7 @@ public class Scenario {
 	public String getActual(){
 		return actual;
 	}
-	
-	public void setDependent(String[] dependent){
-		this.dependent=dependent;
-	}
-	
-	public String[] getDependent(){
-		return dependent;
-	}
+
 	
 	public void setTags(String[] tags){
 		this.tags=tags;
@@ -115,23 +119,16 @@ public class Scenario {
 		
 	}
 	
-	public Headers getHeader(){
+	public Headers getHeaders(){
 		return headers;
 	}
+
 	
-	public void setSendHeader(String[] sendheader){
-		this.sendheader=sendheader;
-	}
-	
-	public String[] getSendHeader(){
-		return sendheader;
-	}
-	
-	public void setJsonPath(JsonPath responseasjp){
+	public void setJsonPath(JsonElement responseasjp){
 		this.responseasjp=responseasjp;
 	}
 	
-	public JsonPath getJsonPath(){
+	public JsonElement getJsonPath(){
 		return responseasjp;
 	}
 	
@@ -142,4 +139,68 @@ public class Scenario {
 	public String getPrimary(){
 		return primary;
 	}
+
+
+	public void setDependent(String[] dependent){
+		this.dependent=dependent;
+
+	}
+
+	public String[] getDependent(){
+		return dependent;
+	}
+
+	// new ones
+
+
+
+
+	public void setHeader(JsonObject header){
+		this.header = header;
+	}
+
+	public JsonObject getHeader(){
+		return header;
+	}
+
+	public void setPayload(JsonObject payload){
+		this.payload=payload;
+	}
+
+	public JsonObject getPayload(){
+		return payload;
+	}
+
+	public void setResponseAttribute(String responseattribute){
+		this.responseattribute=responseattribute;
+	}
+
+	public String getResponseAttribute(){
+		return responseattribute;
+	}
+
+	public void setActualResponse(String actualresponse){
+		this.actualresponse=actualresponse;
+	}
+
+	public String getActualResponse(){
+		return actualresponse;
+	}
+
+	public void setUrl(String url){
+		this.responseattribute=responseattribute;
+	}
+
+	public String getUrl(){
+		return url;
+	}
+
+	public void setResponseTime(long responsetime){
+		this.responsetime=responsetime;
+	}
+
+	public long getResponsetime(){
+		return responsetime;
+	}
+
 }
