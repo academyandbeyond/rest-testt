@@ -14,4 +14,14 @@ public class Common {
         e.printStackTrace(printwriter);
         return writer.toString();
     }
+
+    public static boolean stringCompare(String expected, String actual){
+
+        System.out.println("Inside stringCompre : Expected("+expected+")  Actual("+actual+")");
+        if(expected.contains(actual)){
+            return true;
+        }
+        return false;
+    }
 }
+

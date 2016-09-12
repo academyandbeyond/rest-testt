@@ -2,19 +2,19 @@ package com.resttest.framework;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.jayway.restassured.path.json.JsonPath;
 import com.jayway.restassured.response.Headers;
 import com.resttest.framework.exceptions.RestAPIException;
-import com.resttest.framework.json.model.JsonConstants;
-import com.resttest.framework.json.model.PrimaryData;
-import com.resttest.framework.json.model.ResultEnum;
-import com.resttest.framework.json.model.Scenario;
-import com.resttest.framework.json.model.TestCase;
-import com.resttest.framework.json.model.TestSuite;
+import com.resttest.framework.html.HTML;
+import com.resttest.framework.json.model.*;
 import com.resttest.framework.api.Post;
+import static java.lang.Thread.sleep;
 
 public class Executor {
 	
@@ -33,6 +33,7 @@ public class Executor {
 	private String FAIL = ResultEnum.PASS.getResult();
 	private String NE = ResultEnum.NE.getResult();
 	private Post post;
+	private RestTimer executiontimer;
 	
 	public Executor(ArrayList<TestCase> allTestCases, Capabilities capabilities){
 		this.allTestCases=allTestCases;
@@ -40,8 +41,16 @@ public class Executor {
 		test=new TestAPI();
 		testReport=new TestSuite();
 		primarydata= new ArrayList<PrimaryData>();
+		executiontimer = new RestTimer();
+
+		//
+		Date date = new Date();
+		long time = date.getTime();
+		Timestamp ts = new Timestamp(time);
+		executiontimer.setStartTime(ts);
 	}
-	
+
+
 	public void executeAll(){
 		int totaltestcases=allTestCases.size();
 		for(int i=0; i<totaltestcases;i++)
@@ -54,6 +63,9 @@ public class Executor {
 				currentTestCase.addTCResult(testcaseresult);
 				createReport(currentTestCase);
 				currentTestCase=null;
+				try{
+					sleep(9000);
+				}catch (Exception e){}
 			}
 	}
 	
@@ -113,22 +125,20 @@ public class Executor {
 				post = new Post(currentTestCaseName);
 				post.executePOST(currentscenario, currentUrl);
 			}else if(currentMethod.equalsIgnoreCase(JsonConstants.POSTD.getConstant())) {
-
-					post = new Post(currentTestCaseName);
-
-				post.executePostD(currentscenario, primarydata,currentUrl);
+				post = new Post(currentTestCaseName);
+				currentscenario=post.executePostD(currentscenario, primarydata,currentUrl);
 			}
 			
 			//System.out.println("Inside executeAll : "+currentTestCase.getTCID());
 
 			String currentTCID=currentTestCase.getTCID();
 			
-			if(currentscenario.getPrimary()!=null){
+			if(currentscenario.getPrimary()!=null && currentscenario.getPrimary()!=""){
 				if(currentscenario.getPrimary().equalsIgnoreCase("Yes")){
 					currentprimarydata.setTCID(currentTCID);
 					currentprimarydata.setTSID(currentscenario.getID());
 					currentprimarydata.setJsonPath(currentscenario.getJsonPath());
-					currentprimarydata.setHeader(currentscenario.getHeader());
+					currentprimarydata.setHeader(currentscenario.getHeaders());
 					primarydata.add(currentprimarydata);
 					//primarytestcases.add(currentTestCase);
 				}
@@ -313,35 +323,86 @@ public class Executor {
 		testReport.addTestCase(currenttestcase);
 		
 		int scenarios;
-		List<Scenario> scenario;
+		List<Scenario> allscenarios;
 		String currenttestcaseresult="Not Executed";
-	
-			scenario = currenttestcase.getScenarios();
-			try{
-			if ((scenario.size())<1){
-				scenarios=0;
-			} else{
-			scenarios=scenario.size();
+		ResultEnum currenttestscenarioresult=ResultEnum.NE;
+
+		int totaltestcases=allTestCases.size();
+		int totalscenarios=0;
+		int totaltestcasespassed=0;
+		int totalscenariospassed=0;
+		int totalscenariosfailed=0;
+		int totalscenariosskipped=0;
+
+		boolean scenariofailed=false;
+		allscenarios=currenttestcase.getScenarios();
+
+		try {
+
+			for (TestCase testcase : allTestCases){
+				ArrayList<Scenario> totalscenariosincurrenttest=(ArrayList<Scenario>) testcase.getScenarios();
+				for(Scenario scenario:totalscenariosincurrenttest){
+					totalscenarios=totalscenarios+1;
+					if(scenario.getResult().equals(ResultEnum.FAIL)){
+						totalscenariosfailed=totalscenariosfailed+1;
+					} else if(scenario.getResult().equals(ResultEnum.PASS)){
+						totalscenariospassed=totalscenariospassed+1;
+					} else{
+						totalscenariosskipped=totalscenariosskipped+1;
+					}
+
+				}
+
 			}
-			}catch(Exception e){scenarios=0;}
-			
-			System.out.println(currenttestcase.getFileName()+" : ");
-			System.out.print(currenttestcase.getTCID()+" : ");
-			System.out.print(currenttestcase.getTestCase()+" : ");
-			System.out.println(currenttestcase.getUrl()+" : ");
-				
-			for(int i=0; i<scenarios; i++){
-				System.out.print(scenario.get(i).getID()+" : ");
-				System.out.print(scenario.get(i).getResult()+" : ");	
-				System.out.println(scenario.get(i).getError()+" : ");		
+
+		}catch(Exception e){}
+
+		long time = new Date().getTime();
+
+		Timestamp endtime= new Timestamp(new Date().getTime());
+		executiontimer.setEndTime(endtime);
+
+//		double timediff = executiontimer.getEndTime().getTime() - executiontimer.getStartTime().getTime();
+//		double diffseconds = timediff/(1000%60);
+//		double diffminutes = timediff/(60*1000)%60;
+
+		try{
+
+			HTML.clear();
+			HTML.before_1();
+			HTML.piechartjavascript_2(totaltestcases,totaltestcasespassed,0,totalscenarios,totalscenariospassed,totalscenariosfailed);
+			HTML.buildstatusbox_3();
+			HTML.reportheader_4();
+			for(TestCase testCase:allTestCases){
+				ArrayList<Scenario> totalscenariosincurrenttest=(ArrayList<Scenario>) testCase.getScenarios();
+				for(Scenario scenario:totalscenariosincurrenttest){
+					String currentscenarioresult=null;
+					if(scenario.getResult()==null){
+						currentscenarioresult=ResultEnum.NE.getResult();
+					} else {
+						currentscenarioresult=scenario.getResult().toString();
+					}
+
+					HTML.createreportrow();
+					HTML.adddatacolumn(testCase.getFileName());
+					HTML.adddatacolumn(testCase.getTCID());
+					HTML.adddatacolumn(testCase.getTestCase());
+					HTML.adddatacolumn(scenario.getID());
+					HTML.adddatacolumn(scenario.getScenario());
+					HTML.adddatacolumn(scenario.getUrl());
+					HTML.adddatacolumn(String.valueOf(scenario.getResponsetime()/1000.0));
+					HTML.adddatacolumn("10 seconds");
+					HTML.adddatacolumn(currentscenarioresult);
+
+
+				}
 			}
-			
-			currenttestcase.addTCResult(currenttestcaseresult);
-			
-			System.out.println(currenttestcase.getTCResult()+" : ");
-			currenttestcaseresult="Not Executed";
-			scenario=null;
-			scenarios=0;
+
+			HTML.endreport_5();
+			HTML.after_6();
+
+		}catch (Exception e){}
+
 	
 	}
 	

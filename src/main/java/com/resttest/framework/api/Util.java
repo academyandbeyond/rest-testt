@@ -14,6 +14,7 @@ public class Util {
         test = new TestAPI().createTest(testcase);
     }
 
+    /*
     public Scenario executePost(Scenario scenario){
 
         return null;
@@ -63,4 +64,5 @@ public class Util {
       // System.out.println("asdf :"+ test.postStatus());
         return test.postStatus();
     }
+    */
 }
