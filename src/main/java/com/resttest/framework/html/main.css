@@ -1,0 +1,56 @@
+html,body{
+margin :10;
+padding :1;
+border :1;
+font-size :100%;
+font :inherit;
+vertical-align : baseline;
+
+}
+
+h1{
+background-color:lightblue;
+font-size: 30px;
+text-align: center;
+}
+
+/*main report*/
+
+#box-table-a
+{
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 12px;
+    height: auto;
+    margin: 45px;
+    width: 90%;
+    text-align: left;
+    border-collapse: collapse;
+}
+
+#box-table-a th
+{
+    font-size: 13px;
+    font-weight: normal;
+    padding: 8px;
+    background:#C7E4ED;
+    border-top: 4px;
+    border-bottom: 1px solid #fff;
+    color: #039
+}
+
+#box-table-a td
+{
+    padding: 8px;
+    background:#EBF2F5;
+    border-bottom: 1px solid #fff;
+    color: #669
+    border-top: 1px solid transparent;
+}
+
+#box-table-a tr:hover td
+{
+    background:#C7E4ED;
+    color: #399
+}
+
+/*end ... main report*/
