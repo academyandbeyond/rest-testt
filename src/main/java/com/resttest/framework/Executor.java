@@ -10,14 +10,19 @@ import java.util.List;
 
 import com.jayway.restassured.path.json.JsonPath;
 import com.jayway.restassured.response.Headers;
+import com.resttest.framework.api.Get;
 import com.resttest.framework.exceptions.RestAPIException;
 import com.resttest.framework.html.HTML;
 import com.resttest.framework.json.model.*;
 import com.resttest.framework.api.Post;
+import org.apache.log4j.Logger;
+
 import static java.lang.Thread.sleep;
 
 public class Executor {
-	
+
+	final Logger logger = Logger.getLogger(Executor.class);
+
 	ArrayList<TestCase> allTestCases;
 	TestCase currentTestCase;
 	TestAPI test;
@@ -33,9 +38,12 @@ public class Executor {
 	private String FAIL = ResultEnum.PASS.getResult();
 	private String NE = ResultEnum.NE.getResult();
 	private Post post;
+	private Get get;
 	private RestTimer executiontimer;
 	
 	public Executor(ArrayList<TestCase> allTestCases, Capabilities capabilities){
+
+		logger.info("Inside Executor constructor");
 		this.allTestCases=allTestCases;
 		this.capabilities=capabilities;
 		test=new TestAPI();
@@ -57,14 +65,14 @@ public class Executor {
 			{
 				testcaseresult="Not Executed";
 				currentTestCase=allTestCases.get(i);
-				//System.out.println("Inside executeAll : "+currentTestCase.getTCID());
+				logger.info("Inside executeAll -- Starting Execution for  : "+ currentTestCase.getFileName()+" - "+currentTestCase.getTCID());
 				//Think ... you can get separate method names and call specific method here
 				executeTest();
 				currentTestCase.addTCResult(testcaseresult);
 				createReport(currentTestCase);
 				currentTestCase=null;
 				try{
-					sleep(9000);
+				//	sleep(9000);
 				}catch (Exception e){}
 			}
 	}
@@ -80,46 +88,56 @@ public class Executor {
 		int numofscenarios;
 		PrimaryData currentprimarydata=new PrimaryData();
 				//System.out.println("Inside executeTest : "+currentTestCase.getTCID());
-
 		if (currentTestCase.getScenarios()!=null){
 			numofscenarios=currentTestCase.getScenarios().size();
+			logger.info("Inside executeTest - Number of Scenarios in "+ currentTestCase.getFileName()+" - "+currentTestCase.getTCID()+" : "+numofscenarios );
+
 		}else {
 			numofscenarios=0;
+			logger.warn("Inside executeTest - Number of Scenarios in "+ currentTestCase.getFileName()+" - "+currentTestCase.getTCID()+" : "+numofscenarios );
 			return;
 		}
 		
-		currentUrl=currentTestCase.getUrl();
+		//currentUrl=currentTestCase.getUrl();
 		currentTestCaseName=currentTestCase.getTestCase();
 
 				
 		for(int i=0; i<numofscenarios; i++){
-			
+
 			test.createTest(currentTestCase.getTestCase());
 			currentscenario=currentTestCase.getScenarios().get(i);
 			currentscenario.setResult(ResultEnum.NE);
+			currentUrl=currentscenario.getUrl().toString();
+
 			currentcommand=currentscenario.getCommand().toString();
 			currentExpected=currentscenario.getExpected();
 			currentMethod=currentscenario.getMethod();
 			currentvalidate=currentscenario.getValidate();
 			currentscenarioid=currentscenario.getID();
-			
+			logger.info("Inside executeTest - Executing Scenario "+ currentTestCase.getFileName()+" - "+currentTestCase.getTCID()+" : "+currentscenarioid);
+
 			if (currentscenarioid==null||currentMethod==null || currentvalidate==null || currentcommand==null || currentExpected==null){
 				currentscenario.setError("Exiting execution as one of these is null. { 'method','validate','command','expected'}");
+				logger.error("Exiting execution as one of these is null. { 'method','validate','command','expected'}");
 				continue;
 			}
 			
-			//System.out.println(currentMethod+ "  "+ JsonConstants.GETD.getConstant());
+			logger.info("Execution method on file "+currentMethod);
 			if (currentMethod.equalsIgnoreCase(JsonConstants.GET.toString())){
 				//test=new TestAPI().createTest(currentTestCase.getTestCase()).get(currentUrl);
-				test = test.get(currentUrl);
-				currentheader=test.getAPIHeaders();
-				currentscenario.setHeader(currentheader);
-				currentscenario = executeGet(currentscenario);	
+				logger.info("Executing for GET method");
+				//test = test.get(currentUrl);
+				//currentheader=test.getAPIHeaders();
+				//logger.info("Response header : "+ currentheader);
+				//currentscenario.setResponseHeader(currentheader.toString());
+				get = new Get(currentTestCaseName);
+				get.executeGet(currentscenario,currentUrl);
+				currentscenario = executeGet(currentscenario);
 				
 			} else if(currentMethod.equalsIgnoreCase(JsonConstants.GETD.getConstant())){
 				test = test.get(currentUrl);
 				currentheader=test.getAPIHeaders();
-				currentscenario.setHeader(currentheader);	
+				//currentscenario.setHeader(currentheader);
 				currentscenario = executeGetD(currentscenario,primarydata);	
 			} else if(currentMethod.equalsIgnoreCase(JsonConstants.POST.getConstant())){
 				post = new Post(currentTestCaseName);

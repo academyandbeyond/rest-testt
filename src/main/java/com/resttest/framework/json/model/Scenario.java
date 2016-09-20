@@ -31,6 +31,7 @@ public class Scenario {
 	private String actualresponse;
 	private String url;
 	private long responsetime;
+	private String responseheader;
 
 	
 	public void setID(String id){
@@ -114,7 +115,7 @@ public class Scenario {
 		return tags;
 	}
 	
-	public void setHeader(Headers headers){
+	public void setHeaders(Headers headers){
 		this.headers=headers;
 		
 	}
@@ -153,7 +154,14 @@ public class Scenario {
 	// new ones
 
 
+	public void setResponseHeader(String responseheader){
+		this.responseheader=responseheader;
+	}
 
+
+	public String getResponseHeader(){
+		return responseheader;
+	}
 
 	public void setHeader(JsonObject header){
 		this.header = header;

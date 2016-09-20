@@ -1,5 +1,7 @@
 package com.resttest.framework;
 
+import org.apache.log4j.Logger;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,27 +12,22 @@ import java.util.Map;
 public class RestTest {
 
     RestDriver driver;
+    final Logger logger = Logger.getLogger(RestTest.class);
 
-public RestTest(Map<String, String> capabilities) {
-
-   // String folderpath = "/Users/sreepadbhagwat/OneStop/production/resttest/rest-test/src/main/java/com/resttest/framework/data";
-   // Map<String, String> capabilities = new HashMap<String, String>();
-
-   // capabilities.put("folderpath", folderpath);
-    //capabilities.put("environment", "stg");
-
-     driver = new RestDriver(capabilities);
-
-
+public RestTest() {
+    logger.info("Inside RestTest constructor");
+     driver = new RestDriver();
 
 }
 
     
-    public void ExecuteJsonScripts(){
+    public void ExecuteJsonScripts(Map<String, String> capabilities){
         try {
-            driver.executeScripts();
+            logger.info("Inside ExecuteJsonScripts method");
+            driver.executeScripts(capabilities);
+
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Inside ExecuteJsonScripts catch block"+e);
         }
 
     }
