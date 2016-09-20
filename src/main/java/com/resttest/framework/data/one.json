@@ -1,21 +1,21 @@
 {
 	"TC1": {"TestCase":"Test Case One smoke regression",
-			"url":"http://jsonplaceholder.typicode.com/posts",
-			"method":"GET",
-			"statuscode": 200,
+
 			"scenarios":[
     			{
       			 "id": "SC1",
+					"url":"http://jsonplaceholder.typicode.com/posts",
       			 "method":"GET",
       			 "validate":"status",
       			 "command": "compare",
-      			 "expected":"20",
+      			 "expected":"200",
       			 "primary":"Yes"
     			  },
     			{
       			 "id": "SC2", 
       			 "dependent":["TC1SC1"],
-      			 "method":"POST-D",
+					"url":"http://jsonplaceholder.typicode.com/posts",
+      			 "method":"GET",
       			 "sendheader":["TC1SC1:content-type"],
 				 "sendpayload":["TC1SC1"],
       			 "validate":"status",
@@ -24,7 +24,33 @@
       			 "tags":["tag1","tag2"]
     			  }
     			  ]
-		} 
-		
-		
+		} ,
+	"TC2": {"TestCase":"Test Case One smoke regression",
+
+		"scenarios":[
+			{
+				"id": "SC1",
+				"url":"http://jsonplaceholder.typicode.com/posts",
+				"method":"GET",
+				"validate":"status",
+				"command": "compare",
+				"expected":"200",
+				"primary":"Yes"
+			},
+			{
+				"id": "SC2",
+				"url":"http://jsonplaceholder.typicode.com/posts",
+				"dependent":["TC1SC1"],
+				"method":"GET",
+				"sendheader":["TC1SC1:content-type"],
+				"sendpayload":["TC1SC1"],
+				"validate":"status",
+				"command": "compare",
+				"expected":"200",
+				"tags":["tag1","tag2"]
+			}
+		]
+	}
+
+
 }

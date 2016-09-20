@@ -7,20 +7,25 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 
 import com.resttest.framework.json.model.*;
+import org.apache.log4j.Logger;
+
 public class RestDriver {
 
 	String[] files;
 	Capabilities capabilities;
+	final Logger logger = Logger.getLogger(RestDriver.class);
+	String folderpath;
 
 	
-	public RestDriver(Map capabilitiesmap){
+	public RestDriver(){
+		logger.info("Inside RestDriver constructor");
 		capabilities = new Capabilities();
-		System.out.println(capabilitiesmap.get("folderpath").toString());
-		capabilities.setFolderPath(capabilitiesmap.get("folderpath").toString());
-		capabilities.setEnvironment(capabilitiesmap.get("environment").toString());
+
 		//capabilities.setEnvironment(capabilitiesmap.get("Environment").toString());
 		//this.folderpath=folderpath;
 	}
@@ -29,58 +34,78 @@ public class RestDriver {
 	/*Gather all the test cases and divide by command
 	 * 
 	 */
-	public void executeScripts() throws IOException{
+	public void executeScripts(Map capabilitiesmap) throws IOException{
 
 		/*  1. Read all the components
 		 *  2. Assign all the components to the variables
 		 *  3. Execute the command based on the value
 		 */
 		// TODO verify capabilities are not null
+		try{
+			folderpath=capabilitiesmap.get(JsonConstants.FPATH.getConstant()).toString();
+			capabilities.setFolderPath(folderpath);
+
+			File dir = new File(folderpath);
+			if (dir.exists()){
+				logger.info("Folder exists");
+
+			} else
+			{
+				logger.error("Exiting ... Data folder path provided is invalid. Folder-Path: "+folderpath);
+				return;
+			}
+
+		}catch (Exception e){
+			logger.error("Exiting ... Data folder path provided is either null or invalid. Folder-Path: "+folderpath+ " \nError : "+e);
+			return;
+		}
+
 
 		JsonTCParser jsontcparser = new JsonTCParser(capabilities);
-		//ArrayList<String> jsonData = new ArrayList<String>();
 		Map<String,String>jsonData = new HashMap<String,String>();
 		jsonData=getJsonDataMap(capabilities.getFolderPath());
-		// TD ... Raise exception here if the count is null
-		// TD ... Check if file it ends with .json
+
+		if (jsonData.isEmpty()){
+			logger.info("Exiting .... TestCase folder is empty");
+			return;
+		}
+
 		ArrayList<TestCase> allTestCases = jsontcparser.parsejson(jsonData);
 		// TD ... Raise exception if test case is null
 		//int totalTestCasesCount = allTestCases.size();
-		//System.out.println("Inside RestDriver.executeScripts - TC Count : "+ totalTestCasesCount );
+		logger.info("Inside executeScripts. Total TestCase size : "+ allTestCases.size());
 		Executor executor = new Executor(allTestCases,capabilities);
-		executor.executeAll(); 
+		executor.executeAll();
+
 	}
 	
 	
 	private Map<String, String> getJsonDataMap(String testDataDirectory) throws IOException{
 		 
 		File directory = new File(testDataDirectory);
-		
 		File[] fileslist = directory.listFiles();
-		System.out.println(fileslist.length);
-
-		
+		logger.info("Number of files found to parse : "+ fileslist.length);
 		
 		Map <String, String> datamap = new HashMap<String, String>();
 		
 		//http://stackoverflow.com/questions/7463414/what-s-the-best-way-to-load-a-jsonobject-from-a-json-text-file
-		
-		//File file = new File(folderPath);
-		//List<String> fileswithpath = new ArrayList<String>();
-		//File[] files = new File(folderPath).listFiles();
 		InputStream is;
         String jsonTxt ;
-      //  System.out.println(jsonTxt);
-	
-		//ArrayList<String> fileliststring=new ArrayList();
 
 		for (int i=0; i< fileslist.length; i++) {
 			if (fileslist[i].isFile()){
-				System.out.println(fileslist[i]);
-				is = new FileInputStream(fileslist[i]);
-				jsonTxt = IOUtils.toString(is);
-				
-				datamap.put(fileslist[i].getName(), jsonTxt);
+				logger.info(fileslist[i]);
+
+				if (FilenameUtils.isExtension(String.valueOf(fileslist[i].getName()),"json")){
+					is = new FileInputStream(fileslist[i]);
+					jsonTxt = IOUtils.toString(is);
+					datamap.put(fileslist[i].getName(), jsonTxt);
+					logger.info(fileslist[i].getName() +" : "+ jsonTxt);
+
+				} else {
+					logger.warn("Data folder should not have any file other than json");
+				}
+
 				is=null;
 				jsonTxt=null;
 			}
@@ -101,7 +126,7 @@ public class RestDriver {
 	 */
 	
 	
-	
+	/*
 	
 	
 	private ArrayList<String> getJsonData(String testDataDirectory) throws IOException{
@@ -129,7 +154,7 @@ public class RestDriver {
 		}
 	 
 		return jsonData;
-	}
+	}*/
 	/*
 	private void readTestSuite(ArrayList<TestCase> allTestCases) throws IOException{
 		Config.before();

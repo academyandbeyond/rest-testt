@@ -21,7 +21,11 @@
 
 # TODO
 
-1. Implement POST and POST-D
+
+Detailed report(store all the values in object)
+Report should be in json
+Bootstrap report
+
 2. Test POST and POST-D
 3. Implement GET-D
 4. Test GET-D
@@ -31,5 +35,4 @@
 7. sendheader should be a json {}
 8.
 *. time taken to execute
-*. Raise exception - incorrent path and file
 *. Raise exception - when incorrect json file

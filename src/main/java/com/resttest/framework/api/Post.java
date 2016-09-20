@@ -8,6 +8,7 @@ import com.resttest.framework.TestAPI;
 import com.resttest.framework.json.model.PrimaryData;
 import com.resttest.framework.json.model.Scenario;
 import com.resttest.framework.json.model.ResultEnum;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -18,6 +19,7 @@ import com.resttest.framework.json.model.ResultEnum;
 public class Post {
 
     private TestAPI test;
+    final Logger logger = Logger.getLogger(Post.class);
 
     public Post(String testcase){
        test = new TestAPI().createTest(testcase);
@@ -34,9 +36,15 @@ public class Post {
             url=currentscenario.getUrl();
         }
 
+        logger.info("URL : "+url);
+
+
         try {
             switch(validator){
                 case "status":
+                    logger.info("URL before Post Call : "+ url);
+                    logger.info("Header before Post Call : "+ header);
+                    logger.info("Payload before Post Call : "+ payload);
                     test.post(url,header,payload);
                     statuscode=Integer.toString(test.getStatus());
                     currentscenario.setActualResponse(test.getResponsebody());
@@ -44,7 +52,7 @@ public class Post {
                     currentscenario.setActual(statuscode);
                     currentscenario.setResponseTime(test.responseTime());
                     statusbool=Common.stringCompare(currentscenario.getExpected(),statuscode);
-                    currentscenario.setResult(setResult(statusbool));
+                    currentscenario.setResult(Common.setResult(statusbool));
                     break;
             }
         }catch(Exception e){currentscenario.setError(Common.getStackTrace(e));return currentscenario;}
@@ -52,19 +60,10 @@ public class Post {
     }
 
 
-    private ResultEnum setResult(boolean value){
-        if(value==true){
-            return ResultEnum.PASS;
-        }else if(value==false){
-            return ResultEnum.FAIL;
-        } else{
-            return ResultEnum.NE;
-        }
-    }
 
 
     public Scenario executePostD(Scenario currentscenario,ArrayList<PrimaryData> primarydata, String url){
-       System.out.println("Inside Post:executePostD");
+        logger.info("Starting executePostD");
         Scenario resultscenario=null;
         String headervalue;
         String validator=currentscenario.getValidate();
@@ -79,15 +78,18 @@ public class Post {
         // Custom Payload
         try {
             if (currentscenario.getPayload().toString() != "" & currentscenario.getPayload() != null) {
+                logger.info("URL before Post-D Call : "+ url);
+
                 JsonElement element = currentscenario.getPayload().getAsJsonObject();
                 if (JsonUtil.getJsonElementValue(element, "~Scenario") != null) {
                     primaryscenario = JsonUtil.getJsonElementValue(element, "~Scenario").getAsString();
                 } else {
+                    logger.info("Exiting Post-D as payload is null "+ currentscenario.getPayload());
                     // fail the scenario and get out of method
                 }
             }
 
-        } catch(Exception e){}
+        } catch(Exception e){logger.info("Exiting try block with error "+ e);}
         // TODO if GET-D is null
 
         // 1. get dependency value
@@ -114,7 +116,7 @@ public class Post {
         // Error if primary value not found
 
         if(primaryscenariofound==false){
-            currentscenario.setResult(setResult(false));
+            currentscenario.setResult(Common.setResult(false));
             return currentscenario;
         }
 
@@ -131,13 +133,13 @@ public class Post {
                     currentscenario.setJsonPath(test.getResponseJsonPath());
                     currentscenario.setActual(statuscode);
                     statusbool=Common.stringCompare(currentscenario.getExpected(),statuscode);
-                    currentscenario.setResult(setResult(statusbool));
+                    currentscenario.setResult(Common.setResult(statusbool));
                     break;
 
             }
 
         }catch(Exception e){currentscenario.setError(Common.getStackTrace(e));
-            currentscenario.setResult(setResult(false));
+            currentscenario.setResult(Common.setResult(false));
             return currentscenario;
 
         }

@@ -12,6 +12,9 @@ import com.jayway.restassured.response.Header;
 import com.jayway.restassured.response.Headers;
 import com.jayway.restassured.response.Response;
 import com.jayway.restassured.specification.RequestSpecification;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.params.CoreConnectionPNames;
 
 import static com.jayway.restassured.config.HttpClientConfig.httpClientConfig;
 
@@ -20,13 +23,26 @@ public class Sample {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		RestAssuredConfig config = RestAssured.config().httpClient(httpClientConfig().setParam("CONNECTION_MANAGER_TIMEOUT", 5000));
+		RestAssuredConfig config = RestAssured.config().httpClient(httpClientConfig().setParam(CoreConnectionPNames.SO_TIMEOUT, 1));
+		//CoreConnectionPNames.SO_TIMEOUT
+		//RequestConfig config = RequestConfig.custom().setConnectionRequestTimeout(1000).build();
 
-		Response response = RestAssured.get("http://jsonplaceholder.typicode.com/posts?userId=1");
+		//setConnectionRequestTimeout
+		Response response=null;
+		try {
+			 response = RestAssured.with().config(config).get("http://jsonplaceholder.typicode.com/posts?userId=1");
+			String json = response.asString();
+		}catch(Exception e){}
 	//	InputStream stream = RestAssured.get("http://jsonplaceholder.typicode.com").asInputStream(); // Don't forget to close this one when you're done
 		//byte[] byteArray = RestAssured.get("http://jsonplaceholder.typicode.com").asByteArray();
-		String json = response.asString();
-		
+
+		/*given().config(RestAssured.config().httpClient(HttpClientConfig.httpClientConfig().httpClientFactory(() -> {
+					DefaultHttpClient httpClient = new DefaultHttpClient();
+					httpClient.setRedirectStrategy(..);
+					return httpClient;
+				})
+*/
+
 		//RequestSpecification rs= RestAssured.given().spec(arg0)
 		//System.out.println(json);
 		/*

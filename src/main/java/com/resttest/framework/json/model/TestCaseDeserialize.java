@@ -14,10 +14,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
+import org.apache.log4j.Logger;
 
 public class TestCaseDeserialize implements JsonDeserializer<TestSuite> {
-	
-	
+
+	final Logger logger = Logger.getLogger(TestCaseDeserialize.class);
+
 	public TestSuite deserialize(final JsonElement json, final Type 
 			typeOfT, final JsonDeserializationContext context) throws JsonParseException {
 		
@@ -30,102 +32,56 @@ public class TestCaseDeserialize implements JsonDeserializer<TestSuite> {
 		 */ 
 		
 		//Step1 :Deserialize : Convert JsonElement in to JsonObject
+
 		
 		
-		
-		// new code
-		
-		
-		
-		// end new code
-		
-		
-		
-		//System.out.println("Inside TestCaseDeserializer");
+		logger.info("Inside TestCaseDeserializer");
 		final JsonObject jsonobject = json.getAsJsonObject();
-		
-		
-		/*
-		 * Get all the Ids in to the list
-		 * 
-		 * 
-		
-		 */
 
-	
-
-		
 		TestCase tcs;
 		TestSuite testsuite = new TestSuite();
-		 JsonElement jsonTest;
-		 JsonElement jsonurl;
-		 JsonElement jsonMethod;
-		 JsonElement jsonstatusCode;
-		 String jsonid;
+		JsonElement jsonTest;
+		JsonElement jsonurl;
+		JsonElement jsonMethod;
+		JsonElement jsonstatusCode;
+		String jsonid;
+
+
 		Set<Map.Entry<String, JsonElement>> entrySet = jsonobject.entrySet();
 
-		 for(Map.Entry<String, JsonElement> entry : entrySet) {
+		for(Map.Entry<String, JsonElement> entry : entrySet) {
 			 //System.out.println(idList.get(i));
-			 if (!entry.getKey().isEmpty()){
+			if (!entry.getKey().isEmpty()){
 				 tcs = new TestCase();
-		jsonid=entry.getKey().toString();
-		//System.out.println("Json ID : "+jsonid);
-		
-		if (jsonobject.getAsJsonObject(jsonid).has("TestCase")){
-			jsonTest=jsonobject.getAsJsonObject(jsonid).get("TestCase");
-			tcs.addTCID(jsonid);
-		    tcs.addTestCase(jsonTest.getAsString());
-		} else {
-			// add exception to add tests
-		}
-		
-		if (jsonobject.getAsJsonObject(jsonid).has("statuscode")){
-			jsonstatusCode=jsonobject.getAsJsonObject(jsonid).get("statuscode");
-			tcs.addStatusCode(jsonstatusCode.getAsInt());
-		} else {
-			// add exception to add tests
-		}
-		
-	    
-	    
-		jsonurl=jsonobject.getAsJsonObject(jsonid).get("url");
-		tcs.addUrl(jsonurl.getAsString());
+				 jsonid=entry.getKey().toString();
 
-		// jsonMethod=jsonobject.getAsJsonObject(jsonid).get("method");
-		//tcs.addMethod(jsonMethod.getAsString());
-		
-	//	JsonElement jsonsce = jsonobject.getAsJsonObject(jsonid).get("scenarios");
-		//System.out.println(sce.);
-		// TD ... check for null for scenarios and others
-		Gson scenarioGson = new Gson();
-		Type scenariosType = new TypeToken<List<Scenario>>(){}.getType();
-		//System.out.println(scenariosType.getTypeName());
-		List<Scenario> scenarioList = scenarioGson.fromJson(jsonobject.getAsJsonObject(jsonid).get("scenarios"), scenariosType);
-	    //System.out.println("printing scenarios - "+scenarioList.get(0).getCommand());
-	    //System.out.println("printing scenarios - "+scenarioList.get(1).getCommand());
+				if (jsonobject.getAsJsonObject(jsonid).has("TestCase")){
+					jsonTest=jsonobject.getAsJsonObject(jsonid).get("TestCase");
+					tcs.addTCID(jsonid);
+		    		tcs.addTestCase(jsonTest.getAsString());
+				} else {
+				// add exception to add tests
+				}
 
-		tcs.addScenarios(scenarioList);
-		
-	   // ArrayList<Scenario> scenarios = context.deserialize(jsonobject.get("scenarios"), Scenario.class);
-	   // Scenario[] scenarios = context.deserialize(jsonobject.get("scenarios"), Scenario[].class);
+				/*
+				if (jsonobject.getAsJsonObject(jsonid).has("statuscode")){
+					jsonstatusCode=jsonobject.getAsJsonObject(jsonid).get("statuscode");
+					tcs.addStatusCode(jsonstatusCode.getAsInt());
+				} else {
+				// add exception to add tests
+				}*/
 
-	   // System.out.println("printing scenarios - "+scenarioList);
-	    //tcs.addScenarios(scenarios);
-		
-	    /* JsonArray<Scenario> jsonScenarios = jsonobject.get("scenarios").getAsJsonArray();
+			// TD ... check for null for scenarios and others
+			Gson scenarioGson = new Gson();
+			Type scenariosType = new TypeToken<List<Scenario>>(){}.getType();
+			List<Scenario> scenarioList = scenarioGson.fromJson(jsonobject.getAsJsonObject(jsonid).get("scenarios"), scenariosType);
 
-	    String[] scenarios = new String[jsonScenarios.size()];
-	    for (int i = 0; i < scenarios.length; i++) {
-	        final JsonElement jsonAuthor = jsonScenarios.get(i);
-	        scenarios[i] = jsonAuthor.getAsString();
-	        System.out.println(scenarios[i]);
-	      }
-*/
+
+			tcs.addScenarios(scenarioList);
 		
-		/* jsonExptdStatus = jsonobject.getAsJsonObject(jsonid).get("ExpectedStatus");
-		tcs.addExpectedStatus(jsonExptdStatus.getAsInt());*/
+
 		
-		testsuite.addTestCase(tcs);
+			testsuite.addTestCase(tcs);
 		}
 		 }
 		//System.out.println("size of the test cases : "+testsuite.getTestCases().size());
