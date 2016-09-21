@@ -22,9 +22,12 @@
 # TODO
 
 
-Detailed report(store all the values in object)
-Report should be in json
-Bootstrap report
+1. Detailed report(store all the values in object)
+2. Report should be in json
+3. Bootstrap report
+4. Customize report columns ondemand
+5. wiremock
+6. expected response time in json and display the comparision in report
 
 2. Test POST and POST-D
 3. Implement GET-D
