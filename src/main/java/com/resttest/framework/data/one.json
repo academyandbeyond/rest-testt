@@ -1,36 +1,40 @@
 {
-	"TC1": {"TestCase":"Test Case One smoke regression",
-
-			"scenarios":[
-    			{
-      			 "id": "SC1",
-					"url":"http://jsonplaceholder.typicode.com/posts",
-      			 "method":"GET",
-      			 "validate":"status",
-      			 "command": "compare",
-      			 "expected":"200",
-      			 "primary":"Yes"
-    			  },
-    			{
-      			 "id": "SC2", 
-      			 "dependent":["TC1SC1"],
-					"url":"http://jsonplaceholder.typicode.com/posts",
-      			 "method":"GET",
-      			 "sendheader":["TC1SC1:content-type"],
-				 "sendpayload":["TC1SC1"],
-      			 "validate":"status",
-      			 "command": "compare",
-      			 "expected":"200",
-      			 "tags":["tag1","tag2"]
-    			  }
-    			  ]
-		} ,
-	"TC2": {"TestCase":"Test Case One smoke regression",
+	"TC1": {"TestCase":"Test Case One",
 
 		"scenarios":[
 			{
 				"id": "SC1",
-				"url":"http://jsonplaceholder.typicode.com/posts",
+				"name":"Scenario 1",
+
+				"url":"http://jsonplaceholder.typicode.com/posts/1",
+				"method":"GET",
+				"validate":"status",
+				"header":{},
+				"payload":{},
+				"command": "compare",
+				"expected":"20",
+				"primary":"Yes"
+			},
+			{
+				"id": "SC2",
+				"dependent":["TC1SC1"],
+				"url":"http://jsonplaceholder.typicode.com/posts/2",
+				"method":"GET",
+				"header":{},
+				"payload":{},
+				"validate":"status",
+				"command": "compare",
+				"expected":"200",
+				"tags":["tag1","tag2"]
+			}
+		]
+	} ,
+	"TC2": {"TestCase":"Test Case One",
+
+		"scenarios":[
+			{
+				"id": "SC1",
+				"url":"http://jsonplaceholder.typicode.com/posts/3",
 				"method":"GET",
 				"validate":"status",
 				"command": "compare",
@@ -39,11 +43,11 @@
 			},
 			{
 				"id": "SC2",
-				"url":"http://jsonplaceholder.typicode.com/posts",
+				"url":"http://jsonplaceholder.typicode.com/posts/4",
 				"dependent":["TC1SC1"],
 				"method":"GET",
-				"sendheader":["TC1SC1:content-type"],
-				"sendpayload":["TC1SC1"],
+				"header":{},
+				"payload":{},
 				"validate":"status",
 				"command": "compare",
 				"expected":"200",
