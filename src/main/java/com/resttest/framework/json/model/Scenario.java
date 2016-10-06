@@ -4,10 +4,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.jayway.restassured.path.json.JsonPath;
 import com.jayway.restassured.response.Header;
-import com.jayway.restassured.response.Headers;
+//import com.jayway.restassured.response.Headers;
 
 public class Scenario {
-	
+
 	private String id;
 	private String command;
 	private String expected;
@@ -22,121 +22,134 @@ public class Scenario {
 
 
 	private JsonElement responseasjp;
-	private Headers headers;
+//	private Headers headers;
 	private String primary;
 
 	private JsonObject header;
 	private JsonObject payload;
+
 	private String responseattribute;
 	private String actualresponse;
 	private String url;
 	private long responsetime;
 	private String responseheader;
+	private String name;
+	private double scenariostarttime;
+	private double scenarioendtime;
 
-	
+
 	public void setID(String id){
 		this.id=id;
 	}
-	
+
 	public String getID(){
 		return id;
 	}
-	
+
 	public void setValidate(String validate){
 		this.validate=validate;
 	}
-	
-	
+
+
 	public String getValidate(){
 		return validate;
 	}
-	
+
 	public void setCommand(String command){
 		this.command=command;
 	}
-	
+
 	public String getCommand(){
 		return command;
 	}
-	
+
 	public void setExpected(String expected){
 		this.expected=expected;
 	}
-	
+
 	public String getExpected(){
 		return expected;
 	}
-	
+
+	public void setHeader(JsonObject header){
+		this.header = header;
+	}
+
+	public JsonObject getHeader(){
+		return header;
+	}
+
 	public void setResult(ResultEnum result){
 		this.result=result;
 	}
 	public ResultEnum getResult(){
 		return result;
 	}
-	
+
 	public void setMethod(String method){
 		this.method=method;
 	}
-	
+
 	public String getMethod(){
 		return method;
 	}
-	
+
 	public void setError(String error){
 		this.error=error;
 	}
-	
+
 	public String getError(){
 		return error;
 	}
-	
+
 	public void setScenario(String scenario){
 		this.scenario=scenario;
 	}
-	
+
 	public String getScenario(){
 		return scenario;
 	}
-	
+
 	public void setActual(String actual){
 		this.actual=actual;
 	}
-	
+
 	public String getActual(){
 		return actual;
 	}
 
-	
+
 	public void setTags(String[] tags){
 		this.tags=tags;
 	}
-	
+
 	public String[] getTags(){
 		return tags;
 	}
-	
+
+/*
 	public void setHeaders(Headers headers){
 		this.headers=headers;
-		
+
 	}
-	
+
 	public Headers getHeaders(){
 		return headers;
 	}
+*/
 
-	
 	public void setJsonPath(JsonElement responseasjp){
 		this.responseasjp=responseasjp;
 	}
-	
+
 	public JsonElement getJsonPath(){
 		return responseasjp;
 	}
-	
+
 	public void setPrimary(String primary){
 		this.primary=primary;
 	}
-	
+
 	public String getPrimary(){
 		return primary;
 	}
@@ -163,13 +176,7 @@ public class Scenario {
 		return responseheader;
 	}
 
-	public void setHeader(JsonObject header){
-		this.header = header;
-	}
 
-	public JsonObject getHeader(){
-		return header;
-	}
 
 	public void setPayload(JsonObject payload){
 		this.payload=payload;
@@ -209,6 +216,30 @@ public class Scenario {
 
 	public long getResponsetime(){
 		return responsetime;
+	}
+
+	public void setName(String name){
+		this.name=name;
+	}
+
+	public String getName(){
+		return name;
+	}
+
+	public void setScenarioStartTime(double scenariostarttime){
+		this.scenariostarttime=scenariostarttime;
+	}
+
+	public double getScenarioStartTime(){
+		return scenariostarttime;
+	}
+
+	public void setScenarioEndTime(double scenarioendtime){
+		this.scenarioendtime=scenarioendtime;
+	}
+
+	public double getScenarioEndTime(){
+		return scenarioendtime;
 	}
 
 }

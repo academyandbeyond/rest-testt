@@ -19,7 +19,7 @@ public class RestTimer {
     }
 
     public void setEndTime(Timestamp endtime){
-        this.starttime=starttime;
+        this.endtime=endtime;
     }
 
     public Timestamp getEndTime(){

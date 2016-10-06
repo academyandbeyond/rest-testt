@@ -37,6 +37,20 @@ public class TestAPI {
 		return this;
 	}
 
+
+	public TestAPI put(String url){
+		this.url=url;
+		response=RestAssured.put(url);
+		return this;
+	}
+
+
+	public TestAPI delete(String url){
+		this.url=url;
+		response=RestAssured.delete(url);
+		return this;
+	}
+
 	public String getError(){
 		return this.error;
 	}

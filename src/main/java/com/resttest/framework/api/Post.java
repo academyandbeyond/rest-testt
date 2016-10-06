@@ -81,6 +81,7 @@ public class Post {
                 logger.info("URL before Post-D Call : "+ url);
 
                 JsonElement element = currentscenario.getPayload().getAsJsonObject();
+
                 if (JsonUtil.getJsonElementValue(element, "~Scenario") != null) {
                     primaryscenario = JsonUtil.getJsonElementValue(element, "~Scenario").getAsString();
                 } else {

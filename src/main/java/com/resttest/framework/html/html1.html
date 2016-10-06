@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <!--
+        <link rel='stylesheet' href='<%= org.webjars.AssetLocator.getWebJarPath("css/bootstrap.min.css") %>'>
+        <link rel='stylesheet' href='<%= org.webjars.AssetLocator.getWebJarPath("css/bootstrap-theme.min.css") %>'>
+    <script type='text/javascript' src='<%= org.webjars.AssetLocator.getWebJarPath("jquery.min.js") %>'></script>
+    <script type='text/javascript' src='<%= org.webjars.AssetLocator.getWebJarPath("js/bootstrap.min.js") %>'></script>-->
+
+</head>
+<body>
+
+<!-- Deals with contents margins and is responsive. It contains rows and columns-->
+<div class="container">
+    <h1>Container</h1>
+    <p>container content</p>
+
+    <div class="page-header">
+        <h1>This is page-header inside container</h1>
+    </div>
+
+    <div class="jumbotron">
+        <h1>This is jumbotron inside container</h1>
+    </div>
+
+    <button class="btn btn-default btn-lg">default</button>
+    <button class="btn btn-primary btn-md">primary</button>
+    <button class="btn btn-danger btn-sm">danger</button>
+    <button class="btn btn-success btn-xs">success</button>
+    <button class="btn btn-info active">info</button>
+    <button class="btn btn-warning disabled">warning</button>
+    <button class="btn btn-link">link</button>
+
+
+
+
+</div>
+<!--
+<div class="jumbotron">
+    <h1>This is jumbotron outside container</h1>
+</div>
+-->
+<div class="container-fluid">
+    <h1>Container-fluid</h1>
+    <p>Container-fluid content</p>
+</div>
+
+
+<div class="container">
+    <h1>Grid Example</h1>
+
+    <div class="row">
+        <div class="col-md-1"style="background-color:lavender;">Rahul</div>
+        <div class="col-md-2"style="background-color:lavenderblush;">Vijay</div>
+        <div class="col-md-4"style="background-color:lavender;">Kartik</div>
+        <div class="col-md-5"style="background-color:lavenderblush;">Ajeet</div>
+    </div>
+
+</div>
+
+<div class="container">
+    <h1>Grid Example</h1>
+
+    <div class="row">
+        <div class="col-md-1"style="background-color:lavender;">Rahul</div>
+        <div class="col-md-2"style="background-color:lavenderblush;">Vijay</div>
+        <div class="col-md-4"style="background-color:lavender;">Kartik</div>
+        <div class="col-md-5"style="background-color:lavenderblush;">Ajeet</div>
+    </div>
+
+</div>
+
+
+<!-- TABLE EXAMPLE -->
+
+
+<div class="container">
+    <h1>Contextual classes</h1>
+    <div class="table-responsive">
+
+        <table class="table" >
+            <table class="table table-hover">
+            <tr class="success"><th>Id</th><th>Name</th><th>Age</th></tr>
+            <tr class="active"><td>101</td><td>Rahul</td><td>23</td></tr>
+            <tr class="danger"><td>102</td><td>Umesh</td><td>22</td></tr>
+            <tr class="info"><td>103</td><td>Max</td><td>29</td></tr>
+            <tr class="warning"><td>104</td><td>Ajeet</td><td>21</td></tr>
+        </table>
+        </table>
+
+    </div>
+
+
+    <div class="container">
+        <h1>Hower rows Table Example</h1>
+
+        <table class="table table-hover">
+            <tr><th>Id</th><th>Name</th><th>Age</th></tr>
+            <tr><td>101</td><td>Rahul</td><td>23</td></tr>
+            <tr><td>102</td><td>Umesh</td><td>22</td></tr>
+            <tr><td>103</td><td>Max</td><td>29</td></tr>
+            <tr><td>104</td><td>Ajeet</td><td>21</td></tr>
+        </table>
+
+    </div>
+
+
+    <!--- BOXES OR WELLS-->
+
+    <div class="container">
+        <h2>Well Size</h2>
+        <div class="well well-sm">This is Small Well</div>
+        <div class="well">This is Medium Well (By Default)</div>
+        <div class="well well-lg">This is Large Well</div>
+    </div>
+
+    <!-- Badges on buttons can be used for success and failure status -->
+    <div class="container">
+        <h2>Badges on Buttons</h2>
+        <button type="button" class="btn btn-primary">Primary <span class="badge">7</span></button>
+        <button type="button" class="btn btn-success">Success <span class="badge">3</span></button>
+        <button type="button" class="btn btn-danger">Danger <span class="badge">5</span></button>
+    </div>
+
+
+    <!-- Collapsable-->
+
+    <div class="container">
+        <h2>Basic Collapse Example</h2>
+        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Simple collapsible</button>
+        <div id="demo" class="collapse">
+            Tigers and Lions are the most ferocious animals on the earth. They belong to the felidae(cat) family.
+            They are both from the four big cats. These four big cats are Lion, Tiger, Leopard, and Jaguar.
+            These animals reside on the top of the food chain and don't have any predators.
+        </div>
+        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo1">Simple collapsible</button>
+        <div id="demo1" class="collapse">
+            Tigers and Lions are the most ferocious animals on the earth. They belong to the felidae(cat) family.
+            They are both from the four big cats. These four big cats are Lion, Tiger, Leopard, and Jaguar.
+            These animals reside on the top of the food chain and don't have any predators.
+        </div>
+
+        <!--
+        1. look at progress bar
+
+
+        -->
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr data-toggle="collapse" data-target="#accordion" class="clickable">
+                <td>Some Stuff</td>
+                <td>Some more stuff</td>
+                <td>And some more</td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div id="accordion" class="collapse">Hidden by default</div>
+                </td>
+            </tr>
+            <tr data-toggle="collapse" data-target="#accordion1" class="clickable">
+                <td>Some Stuff</td>
+                <td>Some more stuff</td>
+                <td>And some more</td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div id="accordion1" class="collapse">Hidden by default</div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <table class="table table-bordered table-striped">
+            <tr>
+                <td>
+                    <button type="button" class="btn" data-toggle="collapse" data-target="#collapseme">Click to expand</button>
+                </td>
+            </tr>
+            <tr>
+                <td class="zeroPadding">
+                    <div class="collapse out" id="collapseme">Should be collapsed</div>
+                </td>
+            </tr>
+        </table>
+
+
+
+
+
+        <div class="page-header">
+            <h1>Custom  Twitter Bootstrap collapse table <small></small></h1>
+        </div>
+        <div class="well">
+            <span>It is a kind of table that behaves like an element collapse.</span><br />
+            <span>Put your mouse over one of the rows and click for test </span>
+        </div>
+        <!-- CUSTOM BOOTSTRAP ELEMENT -->
+        <div class="collapse-custom">
+            <!-- HEADING -->
+            <nav class="navbar navbar-default navbar-heading" role="navigation">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="one"><a>Nom</a></li>
+                        <li class="two"><a>Element</a></li>
+                        <li class="three"><a>Prix €</a></li>
+                        <li class="fore"><a>Plus value €</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- ROW 1 -->
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" data-toggle="collapse" href="#collapseOne">
+                    <ul class="nav navbar-nav">
+                        <li class="one"><a>PT 100</a></li>
+                        <li class="two"><a>Capteur type de résistance</a></li>
+                        <li class="three"><a>18</a></li>
+                        <li class="four"><a>1</a></li>
+                        <li class="five">
+                            <div class="navbar-tool">
+                                <button type="button" class="btn btn-default btn-xs">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button>
+                                <button type="button" class="btn btn-default btn-xs">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- HIDDING CONTANT -->
+            <div id="collapseOne" class="collapse" data-parent="bs-example-navbar-collapse-1">
+                <div class="panel-body">
+                    <!-- PICTURE-->
+                    <div class="row">
+                        <div class="col-xs-6 col-xs-offset-3 col-md-3 col-md-offset-3">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label for="exampleInputFile">Visuel</label>
+                                    <input type="file" id="exampleInputFile">
+                                </div>
+                            </form>
+                            <a href="#" class="thumbnail">
+                                <img data-src="holder.js/100%x180" alt="...">
+                            </a>
+                        </div>
+                    </div>
+                    <!-- LISTE-->
+                    <div class="row">
+                        <div class="col-xs-6 col-xs-offset-3 col-md-3 col-md-offset-3">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <span class="badge">50</span>
+                                    Valeur
+                                </li>
+                                <li class="list-group-item">
+                                    Valeur-min
+                                </li>
+                                <li class="list-group-item">
+                                    Valeur-max
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROW 2 -->
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2" data-toggle="collapse" href="#collapseTwo">
+                    <ul class="nav navbar-nav">
+                        <li class="one"><a>PT 1000</a></li>
+                        <li class="two"><a>Capteur type de résistance</a></li>
+                        <li class="three"><a>15</a></li>
+                        <li class="four"><a>2</a></li>
+                        <li class="five">
+                            <div class="navbar-tool">
+                                <button type="button" class="btn btn-default btn-xs">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button>
+                                <button type="button" class="btn btn-default btn-xs">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div id="collapseTwo" class="collapse in" data-parent="bs-example-navbar-collapse-2">
+                <div class="panel-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunc. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                </div>
+            </div>
+
+            <!-- ROW 3 -->
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3" data-toggle="collapse" href="#collapseThree">
+                    <ul class="nav navbar-nav">
+                        <li class="one"><a>Special</a></li>
+                        <li class="two"><a>Capteur type de résistance</a></li>
+                        <li class="three"><a>10</a></li>
+                        <li class="four"><a>2</a></li>
+                        <li class="five">
+                            <div class="navbar-tool">
+                                <button type="button" class="btn btn-default btn-xs">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button>
+                                <button type="button" class="btn btn-default btn-xs">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div id="collapseThree" class="collapse" data-parent="bs-example-navbar-collapse-3">
+                <div class="panel-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunc. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                </div>
+            </div>
+
+            <!-- ROW 4 -->
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="collapse navbar-open navbar-collapse" id="bs-example-navbar-collapse-4" data-toggle="collapse" href="#collapseFour">
+                    <ul class="nav navbar-nav">
+                        <li class="one"><a>CTN</a></li>
+                        <li class="two"><a>Capteur type de résistance</a></li>
+                        <li class="three"><a>22</a></li>
+                        <li class="four">
+                            <ul>
+                                <li>1</li>
+                                <li>2</li>
+                                <li>3</li>
+                            </ul>
+                        </li>
+                        <li class="five">
+                            <div class="navbar-tool">
+                                <button type="button" class="btn btn-default btn-xs">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button>
+                                <button type="button" class="btn btn-default btn-xs">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div id="collapseFour" class="collapse" data-parent="bs-example-navbar-collapse-4">
+                <div class="panel-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunc. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="table-responsive tableStyle">
+            <table id="" class="table table-condensed table-hover table-bordered table-responsive" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    <th class="width50 dispnone">&nbsp;</th>
+                    <th>Ticker No.#</th>
+                    <th>Warning</th>
+                    <th>Status</th>
+                    <th>Next Check Time</th>
+                    <th>Asset ID</th>
+                    <th>Asset Type</th>
+                    <th>Reported Trouble Description</th>
+                    <th>Active Org</th>
+                    <th>Ticket Opened On</th>
+                    <th>Last Modified Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-toggle="collapse" data-target="#a1" class="accordion-toggle" style="cursor:pointer">
+                    <td><span class="icon_expand"></span> <span class="icon_green"></span></td>
+                    <td>7596322719</td>
+                    <td>normal</td>
+                    <td>Deferred</td>
+                    <td>10:13</td>
+                    <td>ab0o2231</td>
+                    <td>lorem</td>
+                    <td>Lorem ipsum dolor sit</td>
+                    <td>lorem</td>
+                    <td>12/03/216</td>
+                    <td>11/04/216</td>
+                </tr>
+                <tr class="reveal">
+                    <td colspan="11"><div class="accordion-body collapse" id="a1">
+                        <div class="bs-callout bs-callout-info" style="margin:0px;">
+                            <h4><i class="fa fa-info"></i>&nbsp;&nbsp;Detalles</h4>
+                            <p> Details for row #1 </p>
+                        </div>
+                    </div></td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</body>
+</html>
